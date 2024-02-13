@@ -1,0 +1,84 @@
+extends layout
+
+block content
+  h1(style="text-align: center; margin-top: 0;")= headerName
+  .container(style=`display: flex; justify-content: center; height: 100%; background-color: ${backgroundColor}; `)
+    .right-side(style=`width: 70%; height: 70%; margin: 20px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: ${backgroundColor}; `)
+      if users
+        h2(style="margin-bottom: 5px; text-align: center; margin-top: 0;") User Table
+        button#deleteAllButton(type="button" style="background-color: #ff0000; color: white; padding: 10px; border: solid; border-radius: 4px; cursor: pointer; width: 20%; height: 6%; border: rounded; ") Delete All Data
+        table(style="width: 100%; border-collapse: collapse;")
+          thead(style="background-color: #f2f2f2;")
+            tr
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") User ID
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") User Name
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") First Name
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Last Name
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Email
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Age
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Transfer Status
+          tbody
+            each user in users
+              tr
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.userId
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.userName
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.firstName
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.lastName
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.email
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.age
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.transferStatus || 0
+      else
+        p(style="text-align: center;") No user data available
+
+    .left-side(style="width: 30%; margin: 10px; height: 70%; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;")
+      h2(style="margin-bottom: 2px; text-align: center; margin-top: 0; font-size: 30px;") Add User
+      form(action="/submit" method="post")
+        .form-group(style="margin-bottom: 2px; font-size: 20px;")
+          label(for="userId") User ID:
+          input(type="text" name="userId" id="userId" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+        .form-group(style="margin-bottom: 2px; font-size: 20px;")
+          label(for="userName") User Name:
+          input(type="text" name="userName" id="userName" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+        .form-group(style="margin-bottom: 2px; font-size: 20px;")
+          label(for="firstName") First Name:
+          input(type="text" name="firstName" id="firstName" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+        .form-group(style="margin-bottom: 2px; font-size: 20px;")
+          label(for="lastName") Last Name:
+          input(type="text" name="lastName" id="lastName" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+        .form-group(style="margin-bottom: 2px; font-size: 20px;")
+          label(for="email") Email:
+          input(type="email" name="email" id="email" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+        .form-group(style="margin-bottom: 2px; font-size: 20px;")
+          label(for="age") Age:
+          input(type="number" name="age" id="age" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+        button(type="submit" style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; width: 100%;") Submit
+
+      script.
+        document.addEventListener('DOMContentLoaded', () => {
+          const deleteAllButton = document.getElementById('deleteAllButton');
+
+          if (deleteAllButton) {
+            deleteAllButton.addEventListener('click', async () => {
+              try {
+                const response = await fetch('/delete-all', {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                });
+
+                if (response.ok) {
+                  alert('All user data deleted successfully.');
+                  location.reload();
+                  // Optionally, you can reload the page or update the UI as needed
+                } else {
+                  console.error('Failed to delete user data:', response.statusText);
+                  alert('Error deleting user data. Please try again.');
+                }
+              } catch (error) {
+                console.error('Error deleting user data:', error);
+                alert('Error deleting user data. Please try again.');
+              }
+            });
+          }
+        });
