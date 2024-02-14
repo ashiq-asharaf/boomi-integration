@@ -20,9 +20,11 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+
 router.get('/users', async(req, res) => {
   try {
-    const users = await db.query(`SELECT * FROM user_data`);
+    const users = await db.func(`get_user_data`);
+    console.log(users);
     res.json(users);
   } catch (error) {
     res.status(500).json({error: 'Internal Server Error' });
