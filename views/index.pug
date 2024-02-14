@@ -55,8 +55,9 @@ block content
         .form-group(style=" font-size: 20px;")
           //- label(for="age") Age:
           input(type="number" name="age" id="age" placeholder="age" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px; border-bottom: 1px solid #eee; width: 90%; font-size: 12px;background-image: ${backgroundColor};` )
-        button(type="submit" style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 15px; cursor: pointer; width: 98%; font-weight: bold;") Add User
-
+        button(type="submit" id="submit" style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 15px; cursor: pointer; width: 98%; font-weight: bold;") Add User
+          
+        
       script.
         document.addEventListener('DOMContentLoaded', () => {
           const deleteAllButton = document.getElementById('deleteAllButton');
@@ -86,6 +87,12 @@ block content
             });
           }
         });
+
+  //- Add footer content here
+  footer(style="text-align: center; margin-top: 120px; color: white; font-size: 15px") Version 0.1
+
+
+        
 
 
 
