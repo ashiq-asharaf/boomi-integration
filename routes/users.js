@@ -24,8 +24,15 @@ router.get('/', async function(req, res, next) {
 router.get('/users', async(req, res) => {
   try {
     const users = await db.func(`get_user_data`);
-    console.log(users);
-    res.json(users);
+
+    const response = users[0]['get_user_data'];
+
+    if (response.length === 0) {
+      res.json({ message: 'No user data available' });
+    } else {
+      res.json(response);
+    }
+
   } catch (error) {
     res.status(500).json({error: 'Internal Server Error' });
   }
