@@ -1,57 +1,61 @@
 extends layout
 
 block content
-  h1(style="text-align: center; margin-top: 0;")= headerName
-  .container(style=`display: flex; justify-content: center; height: 100%; background-color: ${backgroundColor}; `)
-    .right-side(style=`width: 70%; height: 70%; margin: 20px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: ${backgroundColor}; `)
+  h1(style=`text-align: center; margin-top: 0; font-family: 'Inter UI', sans-serif; color: white `)= headerName
+  .container(style=`display: flex; justify-content: center; height: 100%; `)
+    .right-side(style=`width: 70%; height: 70%; margin: 20px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); `)
       if users
         h2(style="margin-bottom: 5px; text-align: center; margin-top: 0;") Users
-        button#deleteAllButton(type="button" style="background-color: #ff0000; margin-bottom: 6px; color: white; padding: 10px; border: solid; border-radius: 4px; cursor: pointer; width: 20%; height: 6%; border: rounded; ") Delete All Data
+        button#deleteAllButton(type="button" style="background-color: #ff0000; margin-bottom: 6px; color: white; padding: 10px; border-radius: 5px; border-radius: 4px; cursor: pointer; width: 20%; height: 6%; ") Delete All Data
         table(style="width: 100%; border-collapse: collapse;")
           thead(style="background-color: #f2f2f2;")
             tr
-              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") ID
-              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") User Name
-              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") First Name
-              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Last Name
-              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Email
-              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Age
+              //- th(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 20px; color: white; background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);") ID
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 20px; color: white; background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);") User Name
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 20px; color: white; background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);") First Name
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 20px; color: white; background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);") Last Name
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 20px; color: white; background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444);") Email
+              th(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 20px; color: white; background: url(https://jackrugile.com/images/misc/noise-diagonal.png), linear-gradient(#777, #444); ") Age
               //- th(style="border: 1px solid #dddddd; text-align: left; padding: 8px;") Transfer Status
           tbody
             each user in users
               tr
-                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.userId
-                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.userName
-                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.firstName
-                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.lastName
-                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.email
-                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.age
+                //- td(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 15px; font-weight: 500; background-color: #EEEEEE;")= user.userId
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 15px; font-weight: 500; background-color: #EEEEEE;")= user.user_name
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 15px; font-weight: 500; background-color: #EEEEEE;")= user.first_name
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 15px; font-weight: 500; background-color: #EEEEEE;")= user.last_name
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 15px; font-weight: 500; background-color: #EEEEEE;")= user.email
+                td(style="border: 1px solid #dddddd; text-align: left; padding: 8px; font-size: 15px; font-weight: 500; background-color: #EEEEEE;")= user.age
                 //- td(style="border: 1px solid #dddddd; text-align: left; padding: 8px;")= user.transferStatus || 0
       else
-        p(style="text-align: center;") No user data available
+        p(style="text-align: center; color: white;") No user data available
 
-    .left-side(style="width: 30%; margin: 10px; height: 70%; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff;")
-      h2(style="margin-bottom: 2px; text-align: center; margin-top: 0; font-size: 30px;") Add User
+    .left-side(style= `width: 30%; margin: 10px; height: 70%; border-radius: 15px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-image: ${backgroundColor};`)
+      h2(style="margin-bottom: 2px; text-align: center; margin-top: 0; font-size: 30px; color: white; ") User
       form(action="/submit" method="post")
-        .form-group(style="margin-bottom: 2px; font-size: 20px;")
-          label(for="userId") User ID:
-          input(type="text" name="userId" id="userId" required style="width: 100%; padding: 8px; box-sizing: border-box;")
-        .form-group(style="margin-bottom: 2px; font-size: 20px;")
-          label(for="userName") User Name:
-          input(type="text" name="userName" id="userName" required style="width: 100%; padding: 8px; box-sizing: border-box;")
-        .form-group(style="margin-bottom: 2px; font-size: 20px;")
-          label(for="firstName") First Name:
-          input(type="text" name="firstName" id="firstName" required style="width: 100%; padding: 8px; box-sizing: border-box;")
-        .form-group(style="margin-bottom: 2px; font-size: 20px;")
-          label(for="lastName") Last Name:
-          input(type="text" name="lastName" id="lastName" required style="width: 100%; padding: 8px; box-sizing: border-box;")
-        .form-group(style="margin-bottom: 2px; font-size: 20px;")
-          label(for="email") Email:
-          input(type="email" name="email" id="email" required style="width: 100%; padding: 8px; box-sizing: border-box;")
-        .form-group(style="margin-bottom: 2px; font-size: 20px;")
-          label(for="age") Age:
-          input(type="number" name="age" id="age" required style="width: 100%; padding: 8px; box-sizing: border-box;")
-        button(type="submit" style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; width: 100%;") Add User
+        //- .form-group(style="font-size: 20px;")
+          //- label(for="userId") User ID:
+          //- input(type="text" name="userId" id="userId" placeholder="User" required style="width: 100%; padding: 8px; box-sizing: border-box;")
+
+          //- input(type="text" name="userId" id="userId" placeholder="User" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px;  border-bottom: 1px solid #eee; width: 90%; font-size: 12px; background-image: ${backgroundColor};`)
+          
+          
+        .form-group(style=" font-size: 20px;")
+          //- label(for="userName") User Name:
+          input(type="text" name="userName" id="userName" placeholder="userName" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px;  border-bottom: 1px solid #eee; width: 90%; font-size: 12px; background-image: ${backgroundColor};`)
+        .form-group(style=" font-size: 20px;")
+          //- label(for="firstName") First Name:
+          input(type="text" name="firstName" id="firstName" placeholder="firstName" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px;  border-bottom: 1px solid #eee; width: 90%; font-size: 12px; background-image: ${backgroundColor};`)
+        .form-group(style=" font-size: 20px;")
+          //- label(for="lastName") Last Name:
+          input(type="text" name="lastName" id="lastName" placeholder="lastName" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px;  border-bottom: 1px solid #eee; width: 90%; font-size: 12px; background-image: ${backgroundColor};`)
+        .form-group(style=" font-size: 20px;")
+          //- label(for="email") Email:
+          input(type="email" name="email" id="email" placeholder="email" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px;  border-bottom: 1px solid #eee; width: 90%; font-size: 12px; background-image: ${backgroundColor};`)
+        .form-group(style=" font-size: 20px;")
+          //- label(for="age") Age:
+          input(type="number" name="age" id="age" placeholder="age" required style=`border: 0; outline: none; display: block; 	box-shadow: none; height: 30px; line-height: 30px; padding: 8px 15px; border-bottom: 1px solid #eee; width: 90%; font-size: 12px;background-image: ${backgroundColor};` )
+        button(type="submit" style="background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 15px; cursor: pointer; width: 98%; font-weight: bold;") Add User
 
       script.
         document.addEventListener('DOMContentLoaded', () => {
@@ -82,3 +86,8 @@ block content
             });
           }
         });
+
+
+
+      
+
