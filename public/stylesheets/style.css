@@ -1,8 +1,8 @@
 body {
-  padding: 50px;
+  /* padding: 50px; */
   font: 28px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
+  /* background-image: linear-gradient(to Left, #8360c3, #2ebf91); */
+  background: #f6f5f7;
+  background:url("https://img.freepik.com/free-vector/modern-luxury-background-designs-abstracts_343694-1899.jpg") center center no-repeat;
+  background-size: cover;
 }
