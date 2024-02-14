@@ -98,33 +98,33 @@ router.post('/addUsers', async (req, res) => {
   }
 });
 
-router.post('/addUsers', async(req, res) => {
-  try {
-    const jsonData = req.body;
+// router.post('/addUsers', async(req, res) => {
+//   try {
+//     const jsonData = req.body;
 
-    const transferStatus = 1;
+//     const transferStatus = 1;
 
-    const Values = jsonData.map(user => [
-      user.user_name,
-      user.first_name,
-      user.last_name,
-      user.email,
-      user.age,
-      transferStatus
-    ]);
+//     const Values = jsonData.map(user => [
+//       user.user_name,
+//       user.first_name,
+//       user.last_name,
+//       user.email,
+//       user.age,
+//       transferStatus
+//     ]);
 
-    const insertQuery = `INSERT INTO user_data (user_id, user_name, first_name, email, age, transferStatus) VALUES $1`;
+//     const insertQuery = `INSERT INTO user_data (user_id, user_name, first_name, email, age, transferStatus) VALUES $1`;
 
-    await db.tx(async t => {
-      await t.none(insertQuery, [...Values]);
-    });
+//     await db.tx(async t => {
+//       await t.none(insertQuery, [...Values]);
+//     });
 
-    res.json({ success: true, message: 'Bulk data stored successfully.' });
-  } catch (error) {
-    console.error('Error storing bulk data:', error);
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
-  }
-});
+//     res.json({ success: true, message: 'Bulk data stored successfully.' });
+//   } catch (error) {
+//     console.error('Error storing bulk data:', error);
+//     res.status(500).json({ success: false, message: 'Internal Server Error' });
+//   }
+// });
 
 
 
