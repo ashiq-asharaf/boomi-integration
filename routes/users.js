@@ -110,7 +110,6 @@ router.post('/addUsers', async (req, res) => {
 
 // #bhoomi EndPoint
 router.post('/executeBoomiProcess', (req, res) => {
-  console.log("Hello")
   const boomiOptions = {
     method: 'POST',
     url: process.env.BOOMI_API_URL,
@@ -133,7 +132,6 @@ router.post('/executeBoomiProcess', (req, res) => {
       "atomId": process.env.BOOMI_ATOM_ID
     })
   };
-  console.log(boomiOptions);
   request(boomiOptions, (error, response, body) => {
     if (error) {
       console.error('Error calling Boomi service:', error);
