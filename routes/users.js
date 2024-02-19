@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../db');
+const request = require('request');
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -106,6 +107,44 @@ router.post('/addUsers', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+// #bhoomi EndPoint
+router.post('/executeBoomiProcess', (req, res) => {
+  console.log("Hello")
+  const boomiOptions = {
+    method: 'POST',
+    url: process.env.BOOMI_API_URL,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': process.env.BOOMI_AUTHORIZATION,
+    },
+    body: JSON.stringify({
+      "ProcessProperties": {
+        "@type": "ProcessProperties",
+        "ProcessProperty": [
+          {
+            "@type": "",
+            "Name": "priority",
+            "Value": "medium"
+          }
+        ]
+      },
+      "processId": process.env.BOOMI_PROCESS_ID,
+      "atomId": process.env.BOOMI_ATOM_ID
+    })
+  };
+  console.log(boomiOptions);
+  request(boomiOptions, (error, response, body) => {
+    if (error) {
+      console.error('Error calling Boomi service:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      console.log(body);
+      res.json({ message: 'Boomi process executed successfully', response: body });
+    }
+  });
+});
+
 
 // router.post('/addUsers', async(req, res) => {
 //   try {
