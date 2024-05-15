@@ -3,6 +3,9 @@ var router = express.Router();
 const db = require('../db');
 const request = require('request');
 
+const table_name = process.env.TABLE_NAME;
+
+
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
@@ -11,7 +14,7 @@ const request = require('request');
 
 router.get('/', async function(req, res, next) {
   try {
-    const result = await db.query(`SELECT * FROM user_data`);
+    const result = await db.query(`SELECT * FROM ${table_name}`);
     const users = result;
 
     res.render('index', { title: 'Express', users});
@@ -41,7 +44,7 @@ router.get('/users', async(req, res) => {
 
 router.delete('/delete-all', async(req, res) => {
   try {
-    await db.query(`Delete FROM user_data`);
+    await db.query(`Delete FROM ${table_name}`);
     console.log('All users deleted successfully');
     res.json({ success: true, message: 'All user data deleted successfully.' });
   } catch (error) {
@@ -61,7 +64,7 @@ router.post('/submit', async(req, res) => {
   const transferStatus = 0;
   try {
     await db.none(
-  `INSERT INTO user_data(user_name, first_name, last_name, email, age, transfer_status) VALUES($1, $2, $3, $4, $5, $6)`,
+  `INSERT INTO ${table_name}(user_name, first_name, last_name, email, age, transfer_status) VALUES($1, $2, $3, $4, $5, $6)`,
   [userName, firstName, lastName, email, age, transferStatus]
     );
     console.log('User data inserted successfully');
