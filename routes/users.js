@@ -27,18 +27,19 @@ router.get('/', async function(req, res, next) {
 
 router.get('/users', async(req, res) => {
   try {
+    console.log("Hello")
     const users = await db.func(`get_user_data`);
+    console.log("users", users)
+    // const response = users[0]['get_user_data'];
 
-    const response = users[0]['get_user_data'];
-
-    if (response.length === 0) {
+    if (users.length === 0) {
       res.json({ message: 'No user data available' });
     } else {
-      res.json(response);
+      res.json(users);
     }
 
   } catch (error) {
-    res.status(500).json({error: 'Internal Server Error' });
+    res.status(500).json({error: 'Internal Server Error',error  });
   }
 });
 
@@ -76,12 +77,12 @@ router.post('/submit', async(req, res) => {
   }
 });
 
+
 router.post('/addUsers', async (req, res) => {
   try {
     const jsonData = req.body;
-
+   
     const transferStatus = 0;
-
     const values = jsonData.map(user => [
       user.user_name,
       user.first_name,
@@ -91,25 +92,67 @@ router.post('/addUsers', async (req, res) => {
       transferStatus
     ]);
 
-    const insertUpdateQuery = 
-    `SELECT insert_update_user_data($1, $2, $3, $4, $5, $6)`;
+  
+    const results = [];
+    for (const userValues of values) {
+      const result = await db.query('INSERT INTO user_data_2(user_name, first_name, last_name, email, age, transfer_status) VALUES($1, $2, $3, $4, $5, $6)', userValues);
+    console.log(result, "result")
+    }
 
-    const results = await db.tx(async t =>{
-      const promises = values.map(userValues =>
-        t.one(insertUpdateQuery, userValues)
-        );
-        return await Promise.all(promises);
-    });
-    console.log(results);
-    // res.redirect('/');
-    res.json(results);
     
-
+    res.send("Inserted successfully")
+    res.redirect('/');
   } catch(error) {
     console.error('Error storing bulk data:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+// router.post('/addUsers', async (req, res) => {
+//   try {
+//     const jsonData = req.body;
+
+    
+
+//     const transferStatus = 0;
+
+//     const values = jsonData.map(user =>[
+//       user.user_name,
+//       user.first_name,
+//       user.last_name,
+//       user.email,
+//       user.age,
+//       transferStatus]
+//     );
+
+
+//     // const insertUpdateQuery = 
+//     // `SELECT insert_update_user_data($1, $2, $3, $4, $5, $6)`;
+  
+//     // const results = await db.tx(async t =>{
+//     //   const promises = values.map(userValues =>
+//     //     t.one(insertUpdateQuery, userValues)
+//     //     );
+//     //     return await Promise.all(promises);
+//     // });
+
+//     const results = [];
+// for (const userValues of values) {
+//   // const result = await db.query('SELECT * FROM insert_update_user_data($1, $2, $3, $4, $5, $6)', userValues);
+//   const result = await db.query('INSERT INTO user_data_2(user_name,first_name,last_name,email,age,transfer_status)     Values($1, $2, $3, $4, $5, $6)', userValues);
+//   results.push(result); // Assuming you expect only one row from the function call
+// }
+
+//     res.json(results);
+//     res.redirect('/');
+   
+    
+
+//   } catch(error) {
+//     console.error('Error storing bulk data:', error);
+//     res.status(500).json({ success: false, message: 'Internal Server Error' });
+//   }
+// });
 
 // #bhoomi EndPoint
 router.post('/executeBoomiProcess', (req, res) => {
