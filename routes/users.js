@@ -98,6 +98,7 @@ router.post('/addUsers', async (req, res) => {
       const result = await db.query('INSERT INTO user_data_2(user_name, first_name, last_name, email, age, transfer_status) VALUES($1, $2, $3, $4, $5, $6)', userValues);
     console.log(result, "result")
     }
+    const updateRows = await db.query('Update user_data set transfer_status = 1')
 
     
     res.send("Inserted successfully")
